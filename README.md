@@ -21,20 +21,66 @@ The application is hosted on an Ubuntu EC2 instance behind Nginx and Gunicorn, a
 
 # 🏗️ Architecture
 
-> Place your generated architecture diagram in:
+The following diagram illustrates the complete deployment architecture of the project.
 
-```text
-screenshots/architecture-diagram.png
-```
+- **GitHub** hosts the source code.
+- **GitHub Actions** automates the CI/CD pipeline.
+- **Amazon EC2** hosts the application.
+- **Nginx** acts as a reverse proxy.
+- **Gunicorn** serves the Flask application.
+- **Amazon CloudWatch** collects metrics, logs, and alarms.
+- **Amazon S3** stores backups and static assets.
+- **IAM Role** provides secure, least-privilege access to AWS services.
 
-Then display it:
-
-```markdown
-![Architecture](screenshots/architecture-diagram.png)
-```
+<p align="center">
+  <img src="screenshots/architecture-diagram.png" alt="AWS DevOps Architecture" width="1000">
+</p>
 
 ---
 
+### Request Flow
+
+```text
+User
+   │
+   ▼
+Nginx (Port 80)
+   │
+   ▼
+Gunicorn (127.0.0.1:8000)
+   │
+   ▼
+Flask Application
+```
+
+### Deployment Flow
+
+```text
+Developer
+      │
+      ▼
+GitHub Repository
+      │
+      ▼
+GitHub Actions
+      │
+      ▼
+EC2 Instance
+      │
+      ▼
+Git Pull
+      │
+      ▼
+Install Dependencies
+      │
+      ▼
+Restart Gunicorn
+      │
+      ▼
+Health Check
+```
+
+---
 # ✨ Features
 
 * Production-ready Flask deployment
